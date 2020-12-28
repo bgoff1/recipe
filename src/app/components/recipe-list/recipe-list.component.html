@@ -1,0 +1,11 @@
+<div class="all-recipes-container">
+  <cdk-virtual-scroll-viewport class="viewport" autosize>
+    <div *cdkVirtualFor="let recipe of recipes | async" class="recipe-container">
+      <mat-card class="w-80" routerLink="/recipe/{{recipe.id}}">
+        <mat-card-title>{{recipe.title | titlecase}}</mat-card-title>
+        <mat-card-subtitle style="float: right">{{recipe.createdAt | createdAt }}
+        </mat-card-subtitle>
+      </mat-card>
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>

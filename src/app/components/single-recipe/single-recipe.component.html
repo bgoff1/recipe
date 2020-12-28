@@ -1,0 +1,26 @@
+<div *ngIf="recipe">
+  <h1 class="pl-1 pt-1">{{ recipe.title | titlecase }}</h1>
+  <h3 class="text-right pr-2">{{recipe.createdAt | createdAt }}</h3>
+
+  <section *ngIf="recipe.tags?.length" class="pl-1 pb-2">
+    <mat-chip-list selectable="false" aria-label="Tags">
+      <mat-chip color="accent" selected *ngFor="let tag of recipe.tags">{{tag}}</mat-chip>
+    </mat-chip-list>
+  </section>
+
+  <section *ngIf="recipe.ingredients.length">
+    <hr>
+    <h4 class="pl-2">Ingredients</h4>
+    <ul>
+      <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
+    </ul>
+  </section>
+
+  <section *ngIf="recipe.steps.length">
+    <hr>
+    <h4 class="pl-2">Directions</h4>
+    <ol>
+      <li *ngFor="let step of recipe.steps">{{step}}</li>
+    </ol>
+  </section>
+</div>
