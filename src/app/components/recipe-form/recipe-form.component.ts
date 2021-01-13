@@ -1,31 +1,62 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { first, takeWhile } from 'rxjs/operators';
+import { Recipe } from '../../models/recipe.model';
+import { ViewMode } from '../../models/view-mode.model';
 import { FirebaseService } from '../../services/firebase.service';
+import { minLengthArray } from '../../util/min-length.util';
 
 @Component({
   selector: 'app-recipe-form',
-  templateUrl: './recipe-form.component.html',
-  styleUrls: ['./recipe-form.component.scss']
+  templateUrl: './recipe-form.component.html'
 })
-export class RecipeFormComponent {
+export class RecipeFormComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  private viewMode: ViewMode;
+  private id: string;
   formGroup = new FormGroup({
-    title: new FormControl(''),
+    title: new FormControl('', Validators.required),
     tags: new FormArray([]),
-    steps: new FormArray([]),
+    steps: new FormArray([], minLengthArray(1)),
     currentStep: new FormControl(''),
-    ingredients: new FormArray([]),
+    ingredients: new FormArray([], minLengthArray(1)),
     currentIngredient: new FormControl('')
   });
   @ViewChild('currentInput') currentInput: ElementRef;
 
   constructor(
     private readonly firebaseService: FirebaseService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {}
+
+  ngOnInit() {
+    this.id = this.route.snapshot.params.id;
+    this.viewMode = this.route.snapshot.params.id
+      ? ViewMode.UPDATE
+      : ViewMode.CREATE;
+
+    if (this.route.snapshot.params.id) {
+      this.route.snapshot.data.recipe
+        .valueChanges()
+        .pipe(first())
+        .subscribe((recipe: Recipe) => {
+          this.title.setValue(recipe.title);
+          this.patchFormArray(this.tags, recipe.tags);
+          this.patchFormArray(this.ingredients, recipe.ingredients);
+          this.patchFormArray(this.steps, recipe.steps);
+        });
+    }
+  }
+
+  patchFormArray(array: FormArray, values: string[]): void {
+    for (const value of values) {
+      array.push(new FormControl(value.trim()));
+    }
+  }
 
   addChip(event: MatChipInputEvent, type: 'tag' | 'step' | 'ingredient'): void {
     const input = event.input;
@@ -65,19 +96,29 @@ export class RecipeFormComponent {
   }
 
   save() {
-    this.firebaseService
-      .createRecipe({
+    if (
+      this.title.value &&
+      this.ingredients.value.length &&
+      this.steps.value.length
+    ) {
+      const payload = {
         title: this.title.value,
         tags: this.tags.value,
         ingredients: this.ingredients.value,
         steps: this.steps.value,
         uid: null,
         creator: null
-      })
-      .then(() => {
-        this.router.navigateByUrl('/recipes');
-      })
-      .catch(() => {});
+      };
+      const promise =
+        this.viewMode === ViewMode.CREATE
+          ? this.firebaseService.createRecipe(payload)
+          : this.firebaseService.updateRecipe(payload, this.id);
+      promise
+        .then(() => {
+          this.router.navigateByUrl('/recipes');
+        })
+        .catch(err => console.error(err));
+    }
   }
 
   get title() {

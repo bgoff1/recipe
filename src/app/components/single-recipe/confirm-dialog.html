@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete {{data}}</h1>
+<div mat-dialog-content>
+  Are you sure you want to delete this recipe?
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">No Thanks</button>
+  <button mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

@@ -13,4 +13,9 @@
     <mat-label>{{label}} {{ stepCount }}</mat-label>
     <input #currentInput matInput (keydown)="onKeyPress($event)" [formControl]="listControl" />
   </mat-form-field>
+  <div class="ml-1">
+    <button mat-mini-fab color="accent" (click)="add()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>

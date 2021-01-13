@@ -13,6 +13,7 @@ import {
   MatChipsModule,
   MAT_CHIPS_DEFAULT_OPTIONS
 } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -20,15 +21,18 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import 'firebase/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CornerButtonComponent } from './components/corner-button/corner-button.component';
+import { ListComponent } from './components/list/list.component';
 import { RecipeFormComponent } from './components/recipe-form/recipe-form.component';
 import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
-import { SingleRecipeComponent } from './components/single-recipe/single-recipe.component';
+import {
+  ConfirmDialog,
+  SingleRecipeComponent
+} from './components/single-recipe/single-recipe.component';
 import { CreatedAtPipe } from './created-at.pipe';
-import { ListComponent } from './components/list/list.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,8 @@ import { ListComponent } from './components/list/list.component';
     SingleRecipeComponent,
     RecipeFormComponent,
     CreatedAtPipe,
-    ListComponent
+    ListComponent,
+    ConfirmDialog
   ],
   imports: [
     BrowserModule,
@@ -62,6 +67,7 @@ import { ListComponent } from './components/list/list.component';
     MatListModule,
     HttpClientModule,
     MatChipsModule,
+    MatDialogModule,
     MatCardModule,
     ScrollingModule,
     ExperimentalScrollingModule,

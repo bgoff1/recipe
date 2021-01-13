@@ -26,6 +26,9 @@ body {
 .text-right {
   text-align: right;
 }
+.pr-1 {
+  padding-right: 0.5em;
+}
 .pr-2 {
   padding-right: 1em;
 }
@@ -43,4 +46,10 @@ body {
 }
 .ml-1 {
   margin-left: 1em;
+}
+.float-right {
+  margin-left: auto;
+}
+.actual-float-right {
+  float: right;
 }

@@ -9,7 +9,6 @@ import {
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import firebase, { auth } from 'firebase/app';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { DBRecipe, Recipe } from '../models/recipe.model';
 
 @Injectable({
@@ -35,38 +34,37 @@ export class FirebaseService
     return this.collection.valueChanges({ idField: 'id' });
   }
 
-  private signIn(provider: auth.AuthProvider) {
-    console.log('signing in');
-    this.firebaseAuth
-      .signInWithPopup(provider)
-      .then(response => {
-        this.user = response.user;
-      })
-      .catch(err => {
-        console.error(err);
-      });
+  getRecipeById(id: string) {
+    return this.collection.doc(id).ref.get();
   }
 
-  canActivate() {
+  private async signIn(provider: auth.AuthProvider) {
+    try {
+      const response = await this.firebaseAuth.signInWithPopup(provider);
+      this.user = response.user;
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  }
+
+  async canActivate() {
     if (this.signedIn) {
       return true;
     }
-    this.signInWithGoogle();
-    return false;
+    return this.signInWithGoogle();
   }
 
-  signInWithFacebook() {
-    this.signIn(new auth.FacebookAuthProvider());
-  }
   signInWithGoogle() {
-    this.signIn(new auth.GoogleAuthProvider());
+    return this.signIn(new auth.GoogleAuthProvider());
   }
 
   signOut() {
     return this.firebaseAuth.signOut();
   }
 
-  createRecipe(recipe: Recipe) {
+  async createRecipe(recipe: Recipe) {
     if (this.signedIn) {
       const recipeDTO = {
         title: recipe.title,
@@ -77,8 +75,34 @@ export class FirebaseService
         creator: this.user.displayName,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
+      await this.collection.add(recipeDTO);
+    } else {
+      this.signInWithGoogle();
+      throw new Error();
+    }
+  }
+
+  updateRecipe(recipe: Recipe, id: string) {
+    if (this.signedIn) {
+      const recipeDTO = {
+        title: recipe.title,
+        steps: recipe.steps,
+        ingredients: recipe.ingredients,
+        uid: this.user.uid,
+        tags: recipe.tags,
+        creator: this.user.displayName
+      };
       console.log(recipeDTO);
-      return this.collection.add(recipeDTO);
+      return this.collection.doc(id).update(recipeDTO);
+    } else {
+      this.signInWithGoogle();
+      throw new Error();
+    }
+  }
+
+  deleteRecipe(id: string) {
+    if (this.signedIn) {
+      return this.collection.doc(id).delete();
     } else {
       this.signInWithGoogle();
       throw new Error();

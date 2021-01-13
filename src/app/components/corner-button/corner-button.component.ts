@@ -4,8 +4,7 @@ import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-corner-button',
-  templateUrl: './corner-button.component.html',
-  styleUrls: ['./corner-button.component.scss']
+  templateUrl: './corner-button.component.html'
 })
 export class CornerButtonComponent {
   constructor(
@@ -19,10 +18,6 @@ export class CornerButtonComponent {
 
   loginWithGoogle() {
     this.firebaseService.signInWithGoogle();
-  }
-
-  loginWithFacebook() {
-    this.firebaseService.signInWithFacebook();
   }
 
   get signedIn() {
