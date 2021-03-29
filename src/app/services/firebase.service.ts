@@ -92,7 +92,6 @@ export class FirebaseService
         tags: recipe.tags,
         creator: this.user.displayName
       };
-      console.log(recipeDTO);
       return this.collection.doc(id).update(recipeDTO);
     } else {
       this.signInWithGoogle();

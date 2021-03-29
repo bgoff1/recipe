@@ -51,7 +51,6 @@ export class SingleRecipeComponent implements OnInit {
           this.router.navigateByUrl('/recipes');
         });
       }
-      console.log('The dialog was closed', result);
     });
   }
 }
@@ -67,7 +66,6 @@ export class ConfirmDialog {
   ) {}
 
   onNoClick(): void {
-    console.log(this.data);
     this.dialogRef.close();
   }
 }

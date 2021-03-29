@@ -34,7 +34,6 @@ export class ListComponent {
     if (value) {
       this.formList.push(new FormControl(value));
     }
-    console.log(value, this.formList);
     this.listControl.setValue('');
   }
 

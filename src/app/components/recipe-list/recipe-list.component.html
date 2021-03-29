@@ -5,6 +5,13 @@
         <mat-card-title>{{recipe.title | titlecase}}</mat-card-title>
         <mat-card-subtitle style="float: right">{{recipe.createdAt | createdAt }}
         </mat-card-subtitle>
+        <mat-card-actions *ngIf="recipe.tags?.length">
+          <section class="pl-1 pb-2">
+            <mat-chip-list selectable="false" aria-label="Tags">
+              <mat-chip color="accent" selected *ngFor="let tag of recipe.tags">{{tag}}</mat-chip>
+            </mat-chip-list>
+          </section>
+        </mat-card-actions>
       </mat-card>
     </div>
   </cdk-virtual-scroll-viewport>
