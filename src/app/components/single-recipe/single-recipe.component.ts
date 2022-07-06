@@ -12,7 +12,7 @@ import { FirebaseService } from '../../services/firebase.service';
 @Component({
   selector: 'app-single-recipe',
   templateUrl: './single-recipe.component.html',
-  styles: []
+  styleUrls: ['./single-recipe.component.scss']
 })
 export class SingleRecipeComponent implements OnInit {
   recipe: Recipe;

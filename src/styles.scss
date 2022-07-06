@@ -4,52 +4,11 @@
 html,
 body {
   height: 100%;
-  overflow-x: hidden;
+  background-color: rgb(23 23 23);
+  color: #fff;
 }
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.hidden {
-  display: none;
-}
-.w-80 {
-  width: 80%;
-}
-.w-100 {
-  width: 100%;
-}
-.w-90 {
-  width: 90%;
-}
-.text-right {
-  text-align: right;
-}
-.pr-1 {
-  padding-right: 0.5em;
-}
-.pr-2 {
-  padding-right: 1em;
-}
-.pl-2 {
-  padding-left: 1em;
-}
-.pl-1 {
-  padding-left: 0.5em;
-}
-.pt-1 {
-  padding-top: 0.5em;
-}
-.pb-2 {
-  padding-bottom: 1em;
-}
-.ml-1 {
-  margin-left: 1em;
-}
-.float-right {
-  margin-left: auto;
-}
-.actual-float-right {
-  float: right;
 }

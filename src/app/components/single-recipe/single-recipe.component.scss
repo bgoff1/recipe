@@ -1,0 +1,43 @@
+.header {
+  padding: 0.5rem;
+  &-titles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & .title {
+      margin: 0;
+    }
+
+    & .date {
+      margin: 0;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.ingredients,
+.steps {
+  border-top: 1px solid rgb(64 64 64);
+  padding: 0.5rem;
+  > div {
+    font-size: 1.25rem;
+  }
+}
+
+ul,
+ol {
+  margin: 0;
+  padding-inline: 1.25rem;
+}
+
+:host {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr 1fr auto;
+}

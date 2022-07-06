@@ -4,7 +4,7 @@ import { FormArray, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styles: []
+  styleUrls: ['./list.component.scss']
 })
 export class ListComponent {
   @Input() listControl: FormControl;

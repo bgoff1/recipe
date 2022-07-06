@@ -1,21 +1,26 @@
-<div>
-  <mat-list #stepList aria-label="Steps">
-    <mat-list-item *ngFor="let step of formList.value; index as i" [selected]="true" color="accent">
-      <a>{{i + 1}}. {{ step }}</a>
-      <div class="ml-1">
-        <button mat-mini-fab color="accent" (click)="remove(i, $event)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-    </mat-list-item>
-  </mat-list>
-  <mat-form-field class="w-90">
-    <mat-label>{{label}} {{ stepCount }}</mat-label>
-    <input #currentInput matInput (keydown)="onKeyPress($event)" [formControl]="listControl" />
+<div class="form-field-wrapper">
+  <mat-form-field>
+    <mat-label>{{ label }} {{ stepCount }}</mat-label>
+    <input
+      #currentInput
+      matInput
+      (keydown)="onKeyPress($event)"
+      [formControl]="listControl"
+    />
   </mat-form-field>
-  <div class="ml-1">
-    <button mat-mini-fab color="accent" (click)="add()">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
+  <button mat-mini-fab color="accent" (click)="add()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div *ngFor="let step of formList.value; index as i" class="list-item">
+  <span class="step-number">{{ i + 1 }}. {{ step }}</span>
+  <button
+    class="delete-button"
+    mat-mini-fab
+    color="accent"
+    (click)="remove(i, $event)"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>

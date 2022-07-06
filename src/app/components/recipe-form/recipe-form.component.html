@@ -1,12 +1,10 @@
-<div class="pl-1 pt-1">
+<div class="container">
   <h1>Creating a Recipe</h1>
   <form class="pl-1" autocomplete="off" [formGroup]="formGroup">
-    <div>
-      <mat-form-field>
-        <mat-label>Recipe Title</mat-label>
-        <input type="text" matInput formControlName="title" />
-      </mat-form-field>
-    </div>
+    <mat-form-field>
+      <mat-label>Recipe Title</mat-label>
+      <input type="text" matInput formControlName="title" />
+    </mat-form-field>
 
     <div>
       <mat-form-field class="w-90">
@@ -23,8 +21,8 @@
       </mat-form-field>
     </div>
 
-    <app-list [listControl]="currentStep" [formList]="steps" [label]="'Instruction Step'"></app-list>
-    <app-list [listControl]="currentIngredient" [formList]="ingredients" [label]="'Ingredient'"></app-list>
+    <app-list [listControl]="currentStep" [formList]="steps" label="Instruction Step"></app-list>
+    <app-list [listControl]="currentIngredient" [formList]="ingredients" label="Ingredient"></app-list>
 
     <button mat-mini-fab color="accent" (click)="save()">
       <mat-icon>save</mat-icon>

@@ -1,11 +1,7 @@
 <mat-toolbar color="primary">
-  <div>
-    <a style="text-decoration: none; color: inherit" routerLink="/recipes">Recipes</a>
-  </div>
+  <a class="home-link" routerLink="/recipes">Recipes</a>
 
-  <span class="float-right">
-    <button mat-mini-fab color="accent" (click)="createRecipe()">
-      <mat-icon>add</mat-icon>
-    </button>
-  </span>
+  <button mat-mini-fab color="accent" (click)="createRecipe()">
+    <mat-icon>add</mat-icon>
+  </button>
 </mat-toolbar>

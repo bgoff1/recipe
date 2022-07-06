@@ -4,7 +4,8 @@ import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-corner-button',
-  templateUrl: './corner-button.component.html'
+  templateUrl: './corner-button.component.html',
+  styleUrls: ['./corner-button.component.scss'],
 })
 export class CornerButtonComponent {
   constructor(

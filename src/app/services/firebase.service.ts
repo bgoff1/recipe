@@ -50,10 +50,10 @@ export class FirebaseService
   }
 
   async canActivate() {
-    if (this.signedIn) {
+    // if (this.signedIn) {
       return true;
-    }
-    return this.signInWithGoogle();
+    // }
+    // return this.signInWithGoogle();
   }
 
   signInWithGoogle() {

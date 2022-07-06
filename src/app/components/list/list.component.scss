@@ -1,0 +1,43 @@
+.form-field-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0;
+
+  ::ng-deep {
+    .mat-list-item-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+.list-container {
+  display: grid;
+  grid-template-areas: 'text' 'button';
+  grid-template-columns: 1fr auto;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step-number {
+  grid-area: text;
+}
+
+.delete-button {
+  grid-area: button;
+}

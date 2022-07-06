@@ -1,0 +1,15 @@
+:host {
+  height: 100%;
+  display: grid;
+  grid-template-areas: 'header' 'main';
+  grid-template-rows: auto 1fr;
+}
+
+app-corner-button {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+  overflow-y: auto;
+}
